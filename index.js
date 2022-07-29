@@ -7,8 +7,8 @@ const { getLyrics } = require('genius-lyrics-api');
 const DisTube = require("distube");
 const radio = require("./radio");
 const config = {
-    PREFIX: "hm!",
-    token: "MTAwMjM1MTQ3OTE1MzI1MDMyNw.Gi6vu3.wA7yBA0kvWNaiSnwT07dWBmJF73Zg6n0VB8nFE",
+    PREFIX: "",
+    token: "",
     geniusapi: ''
 }
 const client = new Discord.Client({ disableMentions: "all" });
