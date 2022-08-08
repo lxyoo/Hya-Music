@@ -55,11 +55,11 @@
   ////////////////////////////
   module.exports = async function (client, message, args) {
     let prefix = await db.get(`prefix_${message.guild.id}`)
-    if(prefix === null) prefix = "h!";
+    if(prefix === null) prefix = "hm!";
 
     //define the No args Embed, lmao
     let resultsEmbed = new Discord.MessageEmbed()
-        .setTitle(`**🎵 Available Radio Stations**`)//
+        .setTitle(`**✅ Available Radio Stations**`)//
         .addFields(
           { name: `***📻 Standard Radio***`, value: `**1:  ** [\`${Radiostations[1-1].split(" ")[0]}\`](${Radiostations[1-1].split(" ")[1]})
           **2:  ** [\`${Radiostations[2-1].split(" ")[0]}\`](${Radiostations[2-1].split(" ")[1]})
@@ -130,9 +130,9 @@
       //check permissions
       const permissions = channel.permissionsFor(message.client.user);
       if (!permissions.has("CONNECT"))
-        return attentionembed(message,"I need permissions to join your channel!");
+        return attentionembed(message,"❌ I need permissions to join your channel!");
       if (!permissions.has("SPEAK"))
-        return attentionembed(message,"I need permissions to speak in your channel");
+        return attentionembed(message,"❌ I need permissions to speak in your channel");
       //If not a number return
       if(isNaN(args[0])) {
         channel.leave();
@@ -155,22 +155,21 @@
   if(Number(i) === 35) {
     channel.leave();
     return message.reply(  new MessageEmbed()
-  .setColor("#061244")
-  .setTitle( `Not a valid radio station please use a Number between \`1\` and \`${Radiostations.length}\``));}
+  .setColor("RED")
+  .setTitle( `❌ That is not a valid radio station. Please use a number between \`1\` and \`${Radiostations.length}\`.`));}
   //define the Radio Args like title and url
   const args2 = Radiostations[i-1].split(` `);
   //song infos
   const song = {
     title: args2[0],
     url: args2[1],
-    thumbnail: "https://cdn.discordapp.com/avatars/767885987740254291/e2118323433dac89f8321929e92dd469.png",
     duration: 10000,
   };
 
   //try to join the Channel
   let connection = await channel.join().catch(console.error);
   //send Search something embed
-  message.channel.send(new MessageEmbed().setColor("#061244")
+  message.channel.send(new MessageEmbed().setColor("RED")
   .setDescription(`**🔴 Searching 🔍 \`${Radiostations[i-1].split(" ")[0]}\`**`));
   //mute yourself
   await connection.voice.setSelfDeaf(true);
@@ -179,7 +178,7 @@
     const newsong = new MessageEmbed()
       .setAuthor(message.author.tag, message.member.user.displayAvatarURL({ dynamic: true }))
       .setTitle("🎵 Started playing" + song.title)
-      .setColor("#061244")
+      .setColor("GREEN")
       .setThumbnail(song.thumbnail)
       .setURL(song.url)
       .setFooter(`Requested by: ${message.author.username}#${message.author.discriminator}`, message.member.user.displayAvatarURL({ dynamic: true }))
